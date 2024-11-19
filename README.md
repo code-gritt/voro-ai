@@ -1,36 +1,21 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Full Stack Journal App with Next JS, React, Tailwind CSS, Prisma, Neon, Clerk, ArcJet, Shadcn UI Tutorial 🔥🔥
+## WIP
 
-## Getting Started
 
-First, run the development server:
+### Make sure to create a `.env` file with following variables -
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_a25vd2luZy1oZW4tODkuY2xlcmsuYWNjb3VudHMuZGV2JA
+CLERK_SECRET_KEY=sk_test_8b1NHVTAsy5Uf1lqmKfLhVpOKmTT9speG8x9giTBhF
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+DATABASE_URL=postgresql://roadsidecoder:HbANyfU8ql2X@ep-delicate-shadow-a5sfcrzv.us-east-2.aws.neon.tech/klimate?sslmode=require
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+PIXABAY_API_KEY=47011205-3f342297aeaff2227dfe884f8
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+ARCJET_KEY=ajkey_01jd07tshwe99twh9a5n1skxyt
+```
