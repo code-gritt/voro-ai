@@ -1,5 +1,5 @@
 # Full Stack Journal App with Next JS, React, Tailwind CSS, Prisma, Neon, Clerk, ArcJet, Shadcn UI Tutorial 🔥🔥
-## WIP
+## Work in Progress
 
 ![image](https://github.com/user-attachments/assets/8e4fbd95-40af-4496-a319-dd74d3954814)
 
