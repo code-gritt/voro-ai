@@ -143,7 +143,7 @@ export default async function LandingPage() {
               </li>
               <li className="flex items-center gap-2">
                 <div className="h-2 w-2 rounded-full bg-orange-400" />
-                <span>Embed images and links</span>
+                <span>Embed links</span>
               </li>
             </ul>
           </div>
