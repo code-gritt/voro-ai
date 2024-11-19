@@ -13,7 +13,7 @@ import {
   Legend,
 } from "recharts";
 import { getAnalytics } from "@/actions/analytics";
-import { getMoodById } from "@/app/lib/moods";
+import { getMoodById, getMoodTrend } from "@/app/lib/moods";
 import { format, parseISO } from "date-fns";
 import useFetch from "@/hooks/use-fetch";
 import MoodAnalyticsSkeleton from "./analytics-loading";
@@ -122,13 +122,13 @@ const MoodAnalytics = () => {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium">
-                Most Frequent Mood
+                Mood Summary
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold flex items-center gap-2">
-                {getMoodById(stats.mostFrequentMood)?.emoji}
-                {getMoodById(stats.mostFrequentMood)?.label}
+                {getMoodById(stats.mostFrequentMood)?.emoji}{" "}
+                {getMoodTrend(stats.averageScore)}
               </div>
             </CardContent>
           </Card>

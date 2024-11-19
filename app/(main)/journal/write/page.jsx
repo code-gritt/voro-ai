@@ -159,6 +159,7 @@ export default function JournalEntryPage() {
           actionResult.collectionId ? actionResult.collectionId : "unorganized"
         }`
       );
+
       toast.success(
         `Entry ${isEditMode ? "updated" : "created"} successfully!`
       );
@@ -339,6 +340,17 @@ export default function JournalEntryPage() {
             {actionLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {isEditMode ? "Update" : "Publish"}
           </Button>
+          {isEditMode && (
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                router.push(`/journal/${existingEntry.id}`);
+              }}
+              variant="destructive"
+            >
+              Cancel
+            </Button>
+          )}
         </div>
       </form>
 

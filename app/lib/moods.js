@@ -271,29 +271,6 @@ export const MOODS = {
   },
 };
 
-// Utility functions
-export const getColorClasses = (color) => ({
-  text: `text-${color}-500`,
-  bg: `bg-${color}-50`,
-  border: `border-${color}-200`,
-});
-
-export const getMoodsByScore = () => {
-  const grouped = {
-    positive: [], // score >= 7
-    neutral: [], // score 5-6
-    negative: [], // score < 5
-  };
-
-  Object.values(MOODS).forEach((mood) => {
-    if (mood.score >= 7) grouped.positive.push(mood);
-    else if (mood.score >= 5) grouped.neutral.push(mood);
-    else grouped.negative.push(mood);
-  });
-
-  return grouped;
-};
-
 export const getMoodTrend = (averageScore) => {
   if (averageScore >= 8) return "You've been feeling great!";
   if (averageScore >= 6) return "You've been doing well overall.";
