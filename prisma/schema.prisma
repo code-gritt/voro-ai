@@ -38,7 +38,7 @@ model Entry {
   title         String
   content       String      @db.Text 
   mood          String      // References moods.js constants
-  moodScore     Int         // Numeric value from moods.ts for analytics
+  moodScore     Int         // Numeric value from moods.js for analytics
   moodImageUrl  String?     // Pixabay image URL
   collection    Collection? @relation(fields: [collectionId], references: [id], onDelete: Cascade)
   collectionId  String?

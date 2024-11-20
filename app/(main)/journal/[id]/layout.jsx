@@ -4,7 +4,7 @@ import Loading from "./loading";
 
 export default function EntryLayout({ children }) {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="px-4 py-8">
       <div className="mb-8">
         <Link
           href="/dashboard"

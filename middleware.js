@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 const isProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",
   "/journal(.*)",
-  "/analytics(.*)",
+  "/collection(.*)",
 ]);
 
 // Create Arcjet middleware

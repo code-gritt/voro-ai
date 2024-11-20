@@ -79,6 +79,7 @@ export default function JournalEntryPage() {
     handleSubmit,
     control,
     setValue,
+    getValues,
     watch,
     reset,
     formState: { errors, isDirty },
@@ -248,7 +249,9 @@ export default function JournalEntryPage() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">Write your thoughts...</label>
+          <label className="text-sm font-medium">
+            {getMoodById(getValues("mood"))?.prompt ?? "Write your thoughts..."}
+          </label>
           <Controller
             name="content"
             control={control}
