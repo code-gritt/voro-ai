@@ -280,5 +280,5 @@ export const getMoodTrend = (averageScore) => {
 };
 
 export const getMoodById = (moodId) => {
-  return MOODS[moodId.toUpperCase()];
+  return MOODS[moodId?.toUpperCase()];
 };

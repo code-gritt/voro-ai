@@ -79,73 +79,15 @@ export async function createJournalEntry(data) {
   }
 }
 
-export async function getDraft() {
-  try {
-    const { userId } = await auth();
-    if (!userId) throw new Error("Unauthorized");
-
-    const user = await db.user.findUnique({
-      where: { clerkUserId: userId },
-    });
-
-    if (!user) {
-      throw new Error("User not found");
-    }
-
-    const draft = await db.draft.findUnique({
-      where: { userId: user.id },
-    });
-
-    return { success: true, data: draft };
-  } catch (error) {
-    return { success: false, error: error.message };
-  }
-}
-
-export async function saveDraft(data) {
-  try {
-    const { userId } = await auth();
-    if (!userId) throw new Error("Unauthorized");
-
-    const user = await db.user.findUnique({
-      where: { clerkUserId: userId },
-    });
-
-    if (!user) {
-      throw new Error("User not found");
-    }
-
-    const draft = await db.draft.upsert({
-      where: { userId: user.id },
-      create: {
-        title: data.title,
-        content: data.content,
-        mood: data.mood,
-        userId: user.id,
-      },
-      update: {
-        title: data.title,
-        content: data.content,
-        mood: data.mood,
-      },
-    });
-
-    revalidatePath("/dashboard");
-    return { success: true, data: draft };
-  } catch (error) {
-    return { success: false, error: error.message };
-  }
-}
-
 export async function getJournalEntries({
   collectionId,
-  // can be implemented with backend as well
+  // ---- Filters can be implemented with backend as well ----
   // mood = null,
   // searchQuery = "",
   // startDate = null,
   // endDate = null,
-  page = 1,
-  limit = 10,
+  // page = 1,
+  // limit = 10,
   orderBy = "desc", // or "asc"
 } = {}) {
   try {
@@ -168,6 +110,8 @@ export async function getJournalEntries({
         : collectionId
         ? { collectionId }
         : {}),
+
+      // ---- Filters can be implemented with backend as well ----
       // ...(mood && { mood }),
       // ...(searchQuery && {
       //   OR: [
@@ -183,9 +127,9 @@ export async function getJournalEntries({
       // }),
     };
 
-    // Get total count for pagination
-    const totalEntries = await db.entry.count({ where });
-    const totalPages = Math.ceil(totalEntries / limit);
+    // ---- Get total count for pagination ----
+    // const totalEntries = await db.entry.count({ where });
+    // const totalPages = Math.ceil(totalEntries / limit);
 
     // Get entries with pagination
     const entries = await db.entry.findMany({
@@ -201,8 +145,8 @@ export async function getJournalEntries({
       orderBy: {
         createdAt: orderBy,
       },
-      skip: (page - 1) * limit,
-      take: limit,
+      // skip: (page - 1) * limit,
+      // take: limit,
     });
 
     // Add mood data to each entry
@@ -215,12 +159,12 @@ export async function getJournalEntries({
       success: true,
       data: {
         entries: entriesWithMoodData,
-        pagination: {
-          total: totalEntries,
-          pages: totalPages,
-          current: page,
-          hasMore: page < totalPages,
-        },
+        // pagination: {
+        //   total: totalEntries,
+        //   pages: totalPages,
+        //   current: page,
+        //   hasMore: page < totalPages,
+        // },
       },
     };
   } catch (error) {
@@ -344,5 +288,63 @@ export async function updateJournalEntry(data) {
     return updatedEntry;
   } catch (error) {
     throw new Error(error.message);
+  }
+}
+
+export async function getDraft() {
+  try {
+    const { userId } = await auth();
+    if (!userId) throw new Error("Unauthorized");
+
+    const user = await db.user.findUnique({
+      where: { clerkUserId: userId },
+    });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const draft = await db.draft.findUnique({
+      where: { userId: user.id },
+    });
+
+    return { success: true, data: draft };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+}
+
+export async function saveDraft(data) {
+  try {
+    const { userId } = await auth();
+    if (!userId) throw new Error("Unauthorized");
+
+    const user = await db.user.findUnique({
+      where: { clerkUserId: userId },
+    });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const draft = await db.draft.upsert({
+      where: { userId: user.id },
+      create: {
+        title: data.title,
+        content: data.content,
+        mood: data.mood,
+        userId: user.id,
+      },
+      update: {
+        title: data.title,
+        content: data.content,
+        mood: data.mood,
+      },
+    });
+
+    revalidatePath("/dashboard");
+    return { success: true, data: draft };
+  } catch (error) {
+    return { success: false, error: error.message };
   }
 }

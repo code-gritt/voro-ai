@@ -6,10 +6,8 @@ import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -41,6 +39,7 @@ export default function DeleteCollectionDialog({
       );
       router.push("/dashboard");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deletedCollection, isDeleting]);
 
   const handleDelete = async () => {

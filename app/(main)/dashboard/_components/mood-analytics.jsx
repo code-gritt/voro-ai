@@ -25,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Link from "next/link";
 
 const timeOptions = [
   { value: "7d", label: "Last 7 Days" },
@@ -74,6 +75,7 @@ const MoodAnalytics = () => {
     <>
       <div className="flex justify-between items-center">
         <h2 className="text-5xl font-bold gradient-title">Dashboard</h2>
+
         <Select value={period} onValueChange={setPeriod}>
           <SelectTrigger className="w-[140px]">
             <SelectValue />
@@ -88,104 +90,115 @@ const MoodAnalytics = () => {
         </Select>
       </div>
 
-      <div className="space-y-6">
-        {/* Stats Cards */}
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">
-                Total Entries
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.totalEntries}</div>
-              <p className="text-xs text-muted-foreground">
-                ~{stats.dailyAverage} entries per day
-              </p>
-            </CardContent>
-          </Card>
+      {analytics.data.entries.length === 0 ? (
+        <div>
+          No Entries Found.{" "}
+          <Link href="/journal/write" className="underline text-orange-400">
+            Write New
+          </Link>
+        </div>
+      ) : (
+        <div className="space-y-6">
+          {/* Stats Cards */}
+          <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Total Entries
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{stats.totalEntries}</div>
+                <p className="text-xs text-muted-foreground">
+                  ~{stats.dailyAverage} entries per day
+                </p>
+              </CardContent>
+            </Card>
 
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">
-                Average Mood
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.averageScore}/10</div>
-              <p className="text-xs text-muted-foreground">
-                Overall mood score
-              </p>
-            </CardContent>
-          </Card>
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Average Mood
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {stats.averageScore}/10
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Overall mood score
+                </p>
+              </CardContent>
+            </Card>
 
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Mood Summary
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold flex items-center gap-2">
+                  {getMoodById(stats.mostFrequentMood)?.emoji}{" "}
+                  {getMoodTrend(stats.averageScore)}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Mood Timeline Chart */}
           <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">
-                Mood Summary
-              </CardTitle>
+            <CardHeader>
+              <CardTitle>Mood Timeline</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold flex items-center gap-2">
-                {getMoodById(stats.mostFrequentMood)?.emoji}{" "}
-                {getMoodTrend(stats.averageScore)}
+              <div className="h-[300px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart
+                    data={timeline}
+                    margin={{
+                      top: 5,
+                      right: 30,
+                      left: 20,
+                      bottom: 5,
+                    }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="date"
+                      tickFormatter={(date) => format(parseISO(date), "MMM d")}
+                    />
+                    <YAxis yAxisId="left" domain={[0, 10]} />
+                    <YAxis
+                      yAxisId="right"
+                      orientation="right"
+                      domain={[0, "auto"]}
+                    />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend />
+                    <Line
+                      yAxisId="left"
+                      type="monotone"
+                      dataKey="averageScore"
+                      stroke="#f97316"
+                      name="Average Mood"
+                      strokeWidth={2}
+                    />
+                    <Line
+                      yAxisId="right"
+                      type="monotone"
+                      dataKey="entryCount"
+                      stroke="#3b82f6"
+                      name="Number of Entries"
+                      strokeWidth={2}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
               </div>
             </CardContent>
           </Card>
         </div>
-
-        {/* Mood Timeline Chart */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Mood Timeline</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  data={timeline}
-                  margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis
-                    dataKey="date"
-                    tickFormatter={(date) => format(parseISO(date), "MMM d")}
-                  />
-                  <YAxis yAxisId="left" domain={[0, 10]} />
-                  <YAxis
-                    yAxisId="right"
-                    orientation="right"
-                    domain={[0, "auto"]}
-                  />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Legend />
-                  <Line
-                    yAxisId="left"
-                    type="monotone"
-                    dataKey="averageScore"
-                    stroke="#f97316"
-                    name="Average Mood"
-                    strokeWidth={2}
-                  />
-                  <Line
-                    yAxisId="right"
-                    type="monotone"
-                    dataKey="entryCount"
-                    stroke="#3b82f6"
-                    name="Number of Entries"
-                    strokeWidth={2}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      )}
     </>
   );
 };

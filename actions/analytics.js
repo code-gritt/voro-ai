@@ -62,11 +62,6 @@ export async function getAnalytics(period = "30d") {
     date,
     averageScore: Number((data.totalScore / data.count).toFixed(1)),
     entryCount: data.count,
-    // Group entries by mood
-    moodDistribution: data.entries.reduce((acc, entry) => {
-      acc[entry.mood] = (acc[entry.mood] || 0) + 1;
-      return acc;
-    }, {}),
   }));
 
   // Calculate overall statistics
@@ -96,6 +91,7 @@ export async function getAnalytics(period = "30d") {
     data: {
       timeline: analyticsData,
       stats: overallStats,
+      entries,
     },
   };
 }
