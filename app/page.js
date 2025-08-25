@@ -51,11 +51,11 @@ export default async function LandingPage() {
       {/* Hero Section */}
       <div className="max-w-5xl mx-auto text-center space-y-8">
         <h1 className="text-5xl md:text-7xl lg:text-8xl gradient-title mb-6">
-          Your Space to Reflect. <br /> Your Story to Tell.
+          Your Space to Voro. <br /> Your Story to Tell.
         </h1>
         <p className="text-lg md:text-xl text-orange-800 mb-8">
-          Capture your thoughts, track your moods, and reflect on your journey
-          in a beautiful, secure space.
+          Capture your thoughts, track your moods, and Voro on your journey in a
+          beautiful, secure space.
         </p>
         <div className="relative">
           <div className="absolute inset-0 bg-gradient-to-t from-orange-50 via-transparent to-transparent pointer-events-none z-10" />

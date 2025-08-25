@@ -13,15 +13,7 @@ async function Header() {
   return (
     <header className="container mx-auto">
       <nav className="py-6 px-4 flex justify-between items-center">
-        <Link href="/">
-          <Image
-            src={"/logo.png"}
-            alt="Reflct Logo"
-            width={200}
-            height={60}
-            className="h-10 w-auto object-contain"
-          />
-        </Link>
+        <Link href="/"></Link>
         <div className="flex items-center gap-4">
           <SignedIn>
             <Link href="/dashboard#collections">
